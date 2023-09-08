@@ -10,13 +10,13 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rigidbody;
 
-    void Start()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         Vector3 moveInput = new Vector3(z: Input.GetAxis("Vertical"), y: 0, x: Input.GetAxis("Horizontal"));
         _animator.SetFloat("Speed", moveInput.magnitude);
