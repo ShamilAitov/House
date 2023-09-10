@@ -21,15 +21,9 @@ public class Door : MonoBehaviour
         if (GetPlayer(collision))
         {
             _animator.SetBool(_isOpen, true);
-            _alarmSystem.ALarmPlay();
-        }
-    }
+            _alarmSystem.SoundPlay();
+            _alarmSystem.IncreaseSoundVolume();
 
-    private void OnTriggerStay(Collider collision)
-    {
-        if (GetPlayer(collision))
-        {
-            _alarmSystem.IncreaseAlarm();
         }
     }
 
@@ -38,7 +32,7 @@ public class Door : MonoBehaviour
         if (GetPlayer(collision))
         {
             _animator.SetBool(_isOpen, false);
-            _alarmSystem.AlarmReduction();
+            _alarmSystem.ReductionSoundVolume();
         }
     }
 

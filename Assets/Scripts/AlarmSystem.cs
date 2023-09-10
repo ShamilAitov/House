@@ -9,24 +9,24 @@ public class AlarmSystem : MonoBehaviour
     private float _minVolume = 0;
     private float _maxVolume = 1;
 
-    void Start()
+    private void Start()
     {
         _alarm.volume = _minVolume;
     }
 
-    public void ALarmPlay()
+    public void SoundPlay()
     {
         _alarm.Play();
     }
 
-    public void IncreaseAlarm()
+    public void IncreaseSoundVolume()
     {
-        _alarm.volume = Mathf.MoveTowards(_alarm.volume, _maxVolume, 0.1F * Time.deltaTime);
+        StartCoroutine(ChangeSoundVolume(_maxVolume));
     }
 
-    public void AlarmReduction()
+    public void ReductionSoundVolume()
     {
-        StartCoroutine(SoundReduction());
+        StartCoroutine(ChangeSoundVolume(_minVolume));
 
         if (_alarm.volume <= _minVolume)
         {
@@ -34,13 +34,16 @@ public class AlarmSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator SoundReduction()
+    private IEnumerator ChangeSoundVolume (float volume)
     {
-        while (_alarm.volume > _minVolume)
-        {
-            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _minVolume, 0.1F * Time.deltaTime);
+        var volumeChangeTime = new WaitForSeconds(0.01F);
+        float shareVolumeChange = 0.1F;
 
-            yield return new WaitForSeconds(0.01F);
+        while (_alarm.volume != volume)
+        {
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, volume, shareVolumeChange * Time.deltaTime);
+
+            yield return volumeChangeTime;
         }
     }
 }
