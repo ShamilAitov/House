@@ -32,7 +32,7 @@ public class Door : MonoBehaviour
         if (GetPlayer(collision))
         {
             _animator.SetBool(_isOpen, false);
-            _alarmSystem.ReductionSoundVolume();
+            _alarmSystem.ReduceSoundVolume();
         }
     }
 

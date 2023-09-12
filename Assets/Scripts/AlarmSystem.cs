@@ -8,6 +8,7 @@ public class AlarmSystem : MonoBehaviour
 
     private float _minVolume = 0;
     private float _maxVolume = 1;
+    private Coroutine _coroutine;
 
     private void Start()
     {
@@ -21,11 +22,21 @@ public class AlarmSystem : MonoBehaviour
 
     public void IncreaseSoundVolume()
     {
-        StartCoroutine(ChangeSoundVolume(_maxVolume));
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+
+        _coroutine = StartCoroutine(ChangeSoundVolume(_maxVolume));
     }
 
-    public void ReductionSoundVolume()
+    public void ReduceSoundVolume()
     {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+
         StartCoroutine(ChangeSoundVolume(_minVolume));
 
         if (_alarm.volume <= _minVolume)
