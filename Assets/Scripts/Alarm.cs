@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlarmSystem : MonoBehaviour
+public class Alarm : MonoBehaviour
 {
     [SerializeField] private AudioSource _alarm;
 
@@ -22,20 +22,14 @@ public class AlarmSystem : MonoBehaviour
 
     public void IncreaseSoundVolume()
     {
-        if (_coroutine != null)
-        {
-            StopCoroutine(_coroutine);
-        }
+        StopCoroutine();
 
         _coroutine = StartCoroutine(ChangeSoundVolume(_maxVolume));
     }
 
     public void ReduceSoundVolume()
     {
-        if (_coroutine != null)
-        {
-            StopCoroutine(_coroutine);
-        }
+        StopCoroutine();
 
         StartCoroutine(ChangeSoundVolume(_minVolume));
 
@@ -45,7 +39,7 @@ public class AlarmSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeSoundVolume (float volume)
+    private IEnumerator ChangeSoundVolume(float volume)
     {
         var volumeChangeTime = new WaitForSeconds(0.01F);
         float shareVolumeChange = 0.1F;
@@ -55,6 +49,14 @@ public class AlarmSystem : MonoBehaviour
             _alarm.volume = Mathf.MoveTowards(_alarm.volume, volume, shareVolumeChange * Time.deltaTime);
 
             yield return volumeChangeTime;
+        }
+    }
+
+    private void StopCoroutine()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
         }
     }
 }

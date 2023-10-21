@@ -3,17 +3,17 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(AlarmSystem))]
+[RequireComponent(typeof(Alarm))]
 public class Door : MonoBehaviour
 {
-    private AlarmSystem _alarmSystem;
+    private Alarm _alarmSystem;
     private Animator _animator;
     private int _isOpen = Animator.StringToHash("IsOpen");
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _alarmSystem = GetComponent<AlarmSystem>();
+        _alarmSystem = GetComponent<Alarm>();
     }
 
     private void OnTriggerEnter(Collider collision)
