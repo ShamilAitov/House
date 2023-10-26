@@ -9,6 +9,7 @@ public class Alarm : MonoBehaviour
     private float _minVolume = 0;
     private float _maxVolume = 1;
     private Coroutine _coroutine;
+    private float _continuationTime = 0.1F;
 
     private void Start()
     {
@@ -41,7 +42,7 @@ public class Alarm : MonoBehaviour
 
     private IEnumerator ChangeSoundVolume(float volume)
     {
-        var volumeChangeTime = new WaitForSeconds(0.01F);
+        var volumeChangeTime = new WaitForSeconds(_continuationTime);
         float shareVolumeChange = 0.1F;
 
         while (_alarm.volume != volume)

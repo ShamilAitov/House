@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
 
     private Animator _animator;
     private Rigidbody _rigidbody;
-    private int animSpeed = Animator.StringToHash("Speed");
+    private int _animSpeed = Animator.StringToHash("Speed");
+    private const string _vertical = "Vertical";
+    private const string _horizontal = "Horizontal";
 
     private void Start()
     {
@@ -19,14 +21,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Vector3 moveInput = new Vector3(z: Input.GetAxis("Vertical"), y: 0, x: Input.GetAxis("Horizontal"));
-        _animator.SetFloat(animSpeed, moveInput.magnitude);
+        Vector3 moveInput = new Vector3(z: Input.GetAxis(_vertical), y: 0, x: Input.GetAxis(_horizontal));
+        _animator.SetFloat(_animSpeed, moveInput.magnitude);
 
         if (moveInput.magnitude > 0.1F)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveInput), Time.deltaTime * _speedRotation);
         }
-
         _rigidbody.velocity = moveInput * _speed;
 
     }
